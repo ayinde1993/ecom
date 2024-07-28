@@ -7,3 +7,4 @@ test:
 
 run: build
 	@./bin/ecom
+	
