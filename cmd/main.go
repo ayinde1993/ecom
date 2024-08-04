@@ -10,6 +10,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
+// db connection parameter
 func main() {
 	db, err := db.NewMySQLStorage(mysql.Config{
 		User:                 config.Envs.DBUser,
@@ -17,7 +18,7 @@ func main() {
 		Addr:                 config.Envs.DBAddress,
 		DBName:               config.Envs.DBName,
 		Net:                  "tcp",
-		AllowNativePasswords: false,
+		AllowNativePasswords: true,
 		ParseTime:            true,
 	})
 	if err != nil {
