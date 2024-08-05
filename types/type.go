@@ -20,6 +20,15 @@ type User struct {
 	CreateAt  time.Time `json:"createAt"`
 }
 
+type Products struct {
+	ID          int       `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Image       string    `json:"image"`
+	Quantity    int       `json:"quantity"`
+	CreateAt    time.Time `json:"createAt"`
+}
+
 type RegisterUserPayload struct {
 	FirstName string `json:"firstName" validate:"required"`
 	LastName  string `json:"lastName" validate:"required"`
