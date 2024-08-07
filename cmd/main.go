@@ -25,8 +25,8 @@ func main() {
 		log.Fatal(err)
 	}
 	iniStorage(db)
-
-	server := api.NewAPIServer(":8080", nil)
+	///////////22222222222///////////////:
+	server := api.NewAPIServer(":8080", db)
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}
