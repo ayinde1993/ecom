@@ -11,12 +11,19 @@ type UserStore interface {
 	CreateUser(User) error
 }
 
-type ProductSore interface {
-	GetUserByEmail(email string) (*User, error)
-	GetUserByID(id int) (*User, error)
+type ProductStore interface {
+	GetProducts() ([]Product, error) // he is going to return product list of product and error
+	CreateProduct(Product) error
+}
 
-	// why is it like this ??
-	CreateUser(User) error
+type Product struct {
+	ID          int       `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Image       string    `json:"image"`
+	Price       float64   `json:"price"`
+	Quantity    int       `json:"quantity"`
+	CreateAt    time.Time `json:"createAt"`
 }
 
 type User struct {
@@ -28,13 +35,21 @@ type User struct {
 	CreateAt  time.Time `json:"createAt"`
 }
 
-type Products struct {
-	ID          int       `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Image       string    `json:"image"`
-	Quantity    int       `json:"quantity"`
-	CreateAt    time.Time `json:"createAt"`
+// type Products struct {
+// 	ID          int       `json:"id"`
+// 	Name        string    `json:"name"`
+// 	Description string    `json:"description"`
+// 	Image       string    `json:"image"`
+// 	Quantity    int       `json:"quantity"`
+// 	CreateAt    time.Time `json:"createAt"`
+// }
+
+type RegisterProductPayload struct {
+	Name        string  `json:"name" validate:"required"`
+	Description string  `json:"description" validate:"required"`
+	Image       string  `json:"image" validate:"required"`
+	Price       float64 `json:"price" validate:"required"`
+	Quantity    int     `json:"quantity" validate:"required" `
 }
 
 type RegisterUserPayload struct {
