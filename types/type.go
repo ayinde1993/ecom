@@ -14,16 +14,31 @@ type UserStore interface {
 type ProductStore interface {
 	GetProducts() ([]Product, error) // he is going to return product list of product and error
 	CreateProduct(Product) error
+	GetProductsByIDs(ps []int) ([]Product, error)
+	UpdateProduct(Product) error
 }
 
-type Product struct {
-	ID          int       `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Image       string    `json:"image"`
-	Price       float64   `json:"price"`
-	Quantity    int       `json:"quantity"`
-	CreateAt    time.Time `json:"createAt"`
+type OrderStore interface {
+	CreateOrder(Order) (int, error)
+	CreateOrderItem(OrderItem) error
+}
+
+type Order struct {
+	ID       int       `json:"id"`
+	UserID   int       `json:"userID"`
+	Total    float64   `json:"total"`
+	Status   string    `json:"status"`
+	Address  string    `json:"address"`
+	CreateAt time.Time `json:"createAt"`
+}
+
+type OrderItem struct {
+	ID        int       `json:"id"`
+	OrderID   int       `json:"orderID"`
+	ProductID int       `json:"productID"`
+	Quantity  int       `json:"quantity"`
+	Price     float64   `json:"price"`
+	CreateAt  time.Time `json:"createAt"`
 }
 
 type User struct {
@@ -35,14 +50,15 @@ type User struct {
 	CreateAt  time.Time `json:"createAt"`
 }
 
-// type Products struct {
-// 	ID          int       `json:"id"`
-// 	Name        string    `json:"name"`
-// 	Description string    `json:"description"`
-// 	Image       string    `json:"image"`
-// 	Quantity    int       `json:"quantity"`
-// 	CreateAt    time.Time `json:"createAt"`
-// }
+type Product struct {
+	ID          int       `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Image       string    `json:"image"`
+	Price       float64   `json:"price"`
+	Quantity    int       `json:"quantity"`
+	CreateAt    time.Time `json:"createAt"`
+}
 
 type RegisterProductPayload struct {
 	Name        string  `json:"name" validate:"required"`
@@ -62,4 +78,13 @@ type RegisterUserPayload struct {
 type LoginUserPayload struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
+}
+
+type CartItem struct {
+	ProductID int `json:"productID"`
+	Quantity  int `json:"quantity"`
+}
+
+type CartCheckoutPayload struct {
+	Items []CartItem `json:"items" validate:"required" `
 }
